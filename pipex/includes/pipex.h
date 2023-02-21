@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 21:15:55 by ichiro            #+#    #+#             */
-/*   Updated: 2023/02/16 15:12:50 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/02/21 14:18:03 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 # include <stddef.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include "../lib/libft/includes/libft.h"
 
 #endif
