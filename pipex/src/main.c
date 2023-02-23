@@ -3,184 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:54:34 by imisumi           #+#    #+#             */
-/*   Updated: 2023/02/21 17:03:15 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/02/23 19:12:25 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	exit_msg(char *msg)
+void	exit_msg(char *msg, char *msg2)
 {
-	printf("%s", msg);
-	exit(0);
+	write(STDERR_FILENO, msg, ft_strlen(msg));
+	if (msg2)
+		write(STDERR_FILENO, msg2, ft_strlen(msg2));
+	write(STDERR_FILENO, "\n", 1);
+	exit(2);
 }
-
-// int	main(void)
-// {
-// 	int	in;
-
-// 	in = open("infile", O_RDONLY);
-// 	dup2(in, STDIN_FILENO);
-// 	close(in);
-// 	char	*argv[] = {"/bin/ls", "-l", NULL};
-// 	int val = execve(argv[0], argv, NULL);
-// 	if (val == -1)
-// 		perror("Error\n");
-// 	printf("Done with execve\n");
-// }
-
-void	child_process(int file1, char *cmd1)
-{
-	printf("Child\n");
-}
-
-void	parent_process(int file2, char *cmd2)
-{
-	wait(NULL);
-
-// int	main(void)
-// {
-// 	int	file[2];
-// 	if (access("infile", F_OK) == -1)
-// 		exit_msg("No infile\n");
-// 	file[0] = c
-// 	if (file[0] == -1)
-// 		return (2);
-// 	file[1] = dup2(file[0], STDOUT_FILENO);
-// 	close(file[0]);
-// 	printf("111");
-// }
-
-// int	main(void)
-// {
-// 	int	out;
-// 	int	in;
-
-// 	if (access("infile", F_OK) == -1)
-// 		exit_msg("No infile\n");
-// 	out = open("outfile", O_WRONLY | O_CREAT, 0777);
-// 	if (out == -1)
-// 		return (2);
-// 	dup2(out, STDOUT_FILENO);
-// 	close(out);
-// 	printf("111");
-// }
-
-// int	main(void)
-// {
-// 	int		file[2];
-// 	pid_t	parent;
-
-// 	if (access("infile", F_OK) == -1)
-// 		exit_msg("No infile\n");
-// 	file[0] = open("infile", O_RDONLY);
-// 	if (file[0] == -1)
-// 		return (2);
-// 	close(file[0]);
-// 	parent = fork();
-// 	if (parent < 0)
-// 		exit_msg("Fork failed\n");
-// 	if (parent == 0)
-// 		child_process(1, 1);
-// 	else
-// 		parent_process(1, 1);
-// }
-
-// int	main(void)
-// {
-// 	int	arr[] = {1, 2, 3, 4, 1, 2, 7, 4};
-// 	int	arrSize = sizeof(arr) / sizeof(int);
-// 	int	start, end;
-// 	int	fd[2];
-// 	if (pipe(fd) == -1)
-// 		return (1);
-// 	int	id = fork();
-// 	if (id == -1)
-// 		return (1);
-// 	if (id == 0)
-// 	{
-// 		start = 0;
-// 		end = start + arrSize / 2;
-// 	}
-// 	else
-// 	{
-// 		start = arrSize / 2;
-// 		end = arrSize;
-// 	}
-// 	int	sum = 0;
-// 	int	i;
-// 	for (i = start; i < end; i++)
-// 		sum += arr[i];
-// 	printf("calculated partial sum: %d\n", sum);
-// 	if (id == 0)
-// 	{
-// 		close(fd[0]);
-// 		write(fd[1], &sum, sizeof(sum));
-// 		close(fd[1]);
-// 	}
-// 	else
-// 	{
-// 		int	sumFromChild;
-// 		close(fd[1]);
-// 		read(fd[0], &sumFromChild, sizeof(sumFromChild));
-// 		close(fd[0]);
-
-// 		int totalsum = sum + sumFromChild;
-// 		printf("total sum = %d\n", totalsum);
-// 		wait(NULL);
-// 	}
-// }
-
-
-
-
-// int	main(void)
-// {
-// 	int	arr[] = {1, 2, 3, 4, 1, 2, 7, 4};
-// 	int	arrSize = sizeof(arr) / sizeof(int);
-// 	int	start, end;
-// 	int	fd[2]; // fd[0] - read, fd[1] - write
-// 	if (pipe(fd) == -1)
-// 		return (1);
-// 	int	id = fork();
-// 	if (id == -1)
-// 		return (1);
-// 	if (id == 0)
-// 	{
-// 		start = 0;
-// 		end = start + arrSize / 2;
-// 	}
-// 	else
-// 	{
-// 		start = arrSize / 2;
-// 		end = arrSize;
-// 	}
-// 	int	sum = 0;
-// 	int	i;
-// 	for (i = start; i < end; i++)
-// 		sum += arr[i];
-// 	printf("calculated partial sum: %d\n", sum);
-// 	if (id == 0) // child proccess
-// 	{
-// 		close(fd[0]);
-// 		write(fd[1], &sum, sizeof(sum));
-// 		close(fd[1]);
-// 	}
-// 	else		//parent proccess
-// 	{
-// 		int	sumFromChild;
-// 		close(fd[1]);
-// 		read(fd[0], &sumFromChild, sizeof(sumFromChild));
-// 		close(fd[0]);
-
-// 		int totalsum = sum + sumFromChild;
-// 		printf("total sum = %d\n", totalsum);
-// 		wait(NULL);
-// 	}
-// }
 
 char **env_paths(char **envp)
 {
@@ -207,67 +46,75 @@ char **env_paths(char **envp)
 	return (paths);
 }
 
-// void	check_cmd(char **paths, char **argv, char **envp)
-// {
-// 	char	**mycmdargs;
-// 	char	*cmd;
-// 	int		i;
-
-// 	// printf("hey\n");
-// 	mycmdargs = ft_split(argv[2], ' ');
-// 	i = -1;
-// 	while (paths[++i])
-// 	{
-// 		cmd = ft_strjoin(paths[i], argv[2]);
-// 		printf("%s\n", cmd);
-// 		execve(cmd, mycmdargs, envp);
-// 		free(cmd);
-// 	}
-// }
-
-void	check_cmd(char **paths, char **argv, char **envp)
+void	check_cmd(char **paths, char **argv, char **envp, int cmd)
 {
 	char	**cmd_arg;
 	char	*cmd_path;
 	int		i;
 
-	cmd_arg = ft_split(argv[2], ' ');
-	i = -1;
-	while (paths[++i])
+	cmd_arg = ft_split(argv[cmd], ' ');
+	i = 0;
+	while (paths[i])
 	{
 		cmd_path = ft_strjoin(paths[i], cmd_arg[0]);
-		
-		execve(cmd_path, cmd_arg, 0);
-		// printf("%s\n", cmd_path);
+		if (access(cmd_path, F_OK) == 0)
+		{
+			execve(cmd_path, cmd_arg, 0);
+		}
+		else
+			i++;
 		free(cmd_path);
 	}
+	exit_msg(argv[cmd], ", is not a valid command\n");
+}
+
+void	child_process(char **argv, char **paths, char **envp, int *fd)
+{
+	close(fd[0]);
+	dup2(fd[1], STDOUT_FILENO);
+	check_cmd(paths, argv, envp, 2);
+}
+
+void	parent_process(char **argv, char **paths, char **envp, int *fd)
+{
+	int	out;
+
+	wait(NULL);
+	out = open(argv[4], O_TRUNC | O_WRONLY | O_CREAT, 0777);
+	if (out == -1)
+		exit_msg("failed to open or create ", argv[4]);
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+		exit_msg("dup2 failed", NULL);
+	close(fd[1]);
+	if (dup2(out, STDOUT_FILENO) == -1)
+		exit_msg("dup2 failed", NULL);
+	close(out);
+	check_cmd(paths, argv, envp, 3);
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	int		in;
-	int		out;
+	int		id;
+	int		fd[2]; // [0] == read - [1] == write
 	char	**paths;
 
-	
-	if (access("infile", F_OK) == -1)
-		exit_msg("No infile\n");
+	if (access(argv[1], F_OK) == -1)
+		exit_msg(argv[1], " does not exist");
 	in = open("infile", O_RDONLY);
-	dup2(in, STDIN_FILENO);
-	close (in);
-	// char	*temp[] = {"/bin/ls", "-l", NULL};
-	// execve(temp[0], temp, envp);
-	// exit (0);
+	if (in == -1)
+		exit_msg("failed to open", argv[1]);
 	paths = env_paths(envp);
-	check_cmd(paths, argv, envp);
-	
-	// char	*ar[] = {"/bin/ls", "-l", NULL};
-	// int val = execve(ar[0], ar, envp);
-	// int	i = 0;
-	// while (paths[i])
-	// {
-	// 	printf("%s\n", paths[i]);
-	// 	i++;
-	// }
-	
+	if (dup2(in, STDIN_FILENO) == -1)
+		exit_msg("dup2 failed", NULL);
+	close (in);
+	if (pipe(fd) == -1)
+		exit_msg("pipe failed", NULL);
+	id = fork(); // child = 0 / parent = 1
+	if (id == -1)
+		exit_msg("fork failed", NULL);
+	if (id == 0)
+		child_process(argv, paths, envp, fd);
+	else
+		parent_process(argv, paths, envp, fd);
 }
