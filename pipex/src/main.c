@@ -6,7 +6,7 @@
 /*   By: ichiro <ichiro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:54:34 by imisumi           #+#    #+#             */
-/*   Updated: 2023/02/23 19:12:25 by ichiro           ###   ########.fr       */
+/*   Updated: 2023/02/23 19:53:37 by ichiro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int	main(int argc, char *argv[], char *envp[])
 	int		fd[2]; // [0] == read - [1] == write
 	char	**paths;
 
+	if (argc != 5)
+		exit_msg("expectec 5 arguments - ./pipex file1 \"cmd1\" \"cmd2\" file2", NULL);
 	if (access(argv[1], F_OK) == -1)
 		exit_msg(argv[1], " does not exist");
 	in = open("infile", O_RDONLY);
