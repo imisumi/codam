@@ -6,7 +6,7 @@
 /*   By: imisumi <imisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 21:15:55 by ichiro            #+#    #+#             */
-/*   Updated: 2023/02/28 15:42:23 by imisumi          ###   ########.fr       */
+/*   Updated: 2023/03/01 16:57:26 by imisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,6 @@
 # define STDOUT STDOUT_FILENO
 # define STDERR STDERR_FILENO
 
-void	exit_msg(char *msg, char *msg2, int x);
-char	**env_paths(char **envp);
-void	check_cmd(char **paths, char **argv, char **envp, int cmd);
-// void	child_process(char **argv, char **paths, char **envp, int *end);
-// void	parent_process(char **argv, char **paths, char **envp, int *end);
-void	exit_error(char *msg, int code);
-
 typedef struct s_pip
 {
 	int		in;
@@ -47,5 +40,11 @@ typedef struct s_pip
 	char	**cmd_arg;
 	char	**paths;
 }	t_pip;
+
+char	**env_paths(char **envp, t_pip pip);
+void	run_cmd(char **paths, char **argv, char **envp, int cmd);
+void	exit_msg(char *msg, char *msg2, int x);
+void	exit_error(char *msg, int code);
+void	pipex(char *argv[], char *envp[], t_pip pip);
 
 #endif
